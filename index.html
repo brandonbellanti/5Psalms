@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Five Psalms</title>
+    <style>
+        body {font-family: sans-serif;color:#383838;};
+    </style>
+</head>
+<body>
+
+<script>
+    const token = '1d0167ef5a0d56b0abd7227042d8c92aeb52e251';
+
+    var d = new Date();
+    var date = d.getDate();
+    var psalms = [date,date+30,date+60,date+90,date+120];
+    var i;
+
+    for (i of psalms) {
+
+        var url = 'https://api.esv.org/v3/passage/html/?q=Psalm+'+i;
+        // url += '&include-verse-numbers=false';
+        url += '&include-first-verse-number=false';
+        url += '&include-footnotes=false';
+        url += '&include-short-copyright=true';
+        // url += '&div-classes=passage';
+
+        fetch(url, {
+            headers: {
+                Authorization: `Token ${token}`
+            }
+        }).then(res => res.json()).then(json => document.write(json.passages[0]));
+    };
+    
+</script>
+
+</body>
+</html>
